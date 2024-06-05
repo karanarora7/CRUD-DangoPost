@@ -1,4 +1,4 @@
-from rest_framework import response
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import User
 from .serializers import UserSerializer
@@ -10,7 +10,7 @@ from .serializers import UserSerializer
 def getUsers(request):
     users=User.objects.all()
     serializer=UserSerializer(users, many=True)
-    return response(serializer.data)
+    return Response(serializer.data)
 
 
 # Get single user
@@ -18,7 +18,7 @@ def getUsers(request):
 def getUser(request, pk):
     user=User.objects.get(id=pk)
     serializer=UserSerializer(user, many=False)
-    return response(serializer.data)
+    return Response(serializer.data)
 
 
 # add user
@@ -29,7 +29,7 @@ def addUser(request):
     if serializer.is_valid():
         serializer.save()
     
-    return response(serializer.data)
+    return Response(serializer.data)
 
 
 # Update User
@@ -41,7 +41,7 @@ def updateUser(request, pk):
     if serializer.is_valid():
         serializer.save()
 
-    return response(serializer.data)
+    return Response(serializer.data)
 
 
 # delete user
@@ -50,4 +50,4 @@ def deleteUser(request, pk):
     user=User.objects.get(id=pk)
     user.delete()
 
-    return response("Item successfully deleted!")
+    return Response("Item successfully deleted!")
